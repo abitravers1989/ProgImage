@@ -4,7 +4,9 @@
   "description": "microservice to store and process images",
   "main": "src/index.js",
   "scripts": {
-    "test:unit": "mocha $(find src -name '*.test.js')"
+    "test": "npm run test:unit && npm run test:integration", 
+    "test:unit": "mocha $(find src -name '*.test.js')",
+    "test:integration": "mocha $(find test/integration -name '*.test.js')"
   },
   "author": "abi travers",
   "license": "ISC",
