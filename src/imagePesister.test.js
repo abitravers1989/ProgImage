@@ -1,9 +1,11 @@
-const uuidv4 = require('uuid/v4');
+//const uuidv4 = require('uuid/v4');
+
+const sandbox = sinon.createSandbox();
 
 //Factory pattern
 const imagePesisterFactory = require('./imagePesister');
 const dependencies = {
-  uuidv4
+  uuidv4: sandbox.spy(),
 }
 const imagePesister = imagePesisterFactory(dependencies);
 
@@ -25,11 +27,15 @@ describe('Image Pesister', () => {
 
     it('returns a unique ID, even when saving the same image twice', () => {
       const image = 'image';
-      const firsSave = imagePesister.saveImage(image);
-      const secondSave = imagePesister.saveImage(image);
-
-      expect(firsSave).to.be.a.uuid('v4');
-      expect(firsSave).to.not.equal(secondSave);
+      imagePesister.saveImage(image);
+    
+      expect(dependencies.uuidv4).to.have.been.called;
+      //integration test?
+      // const firsSave = imagePesister.saveImage(image);
+      // const secondSave = imagePesister.saveImage(image);
+      // expect(firsSave).to.be.a.uuid('v4');
+      // expect(firsSave).to.not.equal(secondSave);
+      
     });
   });
 });
