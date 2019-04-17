@@ -1,8 +1,4 @@
-const chai = require('chai');
 const uuidv4 = require('uuid/v4');
-
-const expect = chai.expect
-chai.use(require('chai-uuid'));
 
 //Factory pattern
 const imagePesisterFactory = require('./imagePesister');
