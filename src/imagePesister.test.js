@@ -14,10 +14,11 @@ const imagePesister = imagePesisterFactory(dependencies);
 describe('Image Pesister', () => {
   describe('saveImage', () => {
     it('throws an error if no image is provided', () => {
+
       expect(() => imagePesister.saveImage()).to.throw('No image is provided');
     });
 
-    it('throws an error if image input is not an image', () => {
+    xit('throws an error if image input is not an image', () => {
       const image = 'image';
       expect(() => imagePesister.saveImage()).to.throw('Not type of image');
     });
@@ -26,12 +27,13 @@ describe('Image Pesister', () => {
 
     });
 
-    it('returns a unique ID', () => {
-      // expect it returns a typeOf uuid 
+    it('returns a unique ID, even when saving the same image twice', () => {
       const image = 'image';
-      expect(imagePesister.saveImage(image)).to.be.a.uuid('v4');
+      const firsSave = imagePesister.saveImage(image);
+      const secondSave = imagePesister.saveImage(image);
 
-      // does not return the same ID twice
+      expect(firsSave).to.be.a.uuid('v4');
+      expect(firsSave).to.not.equal(secondSave);
     });
   });
 });
