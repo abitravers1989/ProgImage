@@ -1,43 +1,45 @@
-//const { uuidv4 } = require('../../src/container');
+// const { uniqueIDGenerator } = require('../../src/container');
 const { fileSystem } = require('../../src/container');
-//console.log('----->fsTEST', fileSystem.readFile)
+const constants = require('../../src/constants');
+// console.log('----->fsTEST', fileSystem.readFile)
 const sandbox = sinon.createSandbox();
 
 const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
 
 const dependencies = {
   fileSystem,
-  uuidv4: sandbox.stub().returns(uuid)
-}
+  uniqueIDGenerator: sandbox.stub().returns(uuid),
+  constants,
+};
 
 const imagePesisterFactory = require('../../src/stores/fileSystemImagePesister');
-const imagePesister = imagePesisterFactory(dependencies);
 
+const imagePesister = imagePesisterFactory(dependencies);
 
 describe('image pesister', () => {
   describe('saveImage', () => {
-    xit('saves the given image data to the local file system', () => {
-      const imagePath = __dirname + '/testObjects/testImageData';
+    it('saves the given image data to the local file system', () => {
+      const imagePath = `${__dirname}/testObjects/testImageData`;
       const imageData = fileSystem.readFileSync(imagePath);
 
-      const imageUUID = imagePesister.saveImage(imageData); 
+      imagePesister.saveImage(imageData);
 
-      console.log('----->imageUUID', imagePesister.saveImage(imageData))
-      
-      //expect it to return a bytes array which can be viewed as the orginal image when correct extension added
-     
+      const savedImage = fileSystem.readFileSync(
+        `${constants.IMAGESTOREPATH}/${uuid}`,
+      );
+      expect(savedImage).to.be.instanceof(Buffer);
     });
-  
-    it('returns a unique identifier upon successful completion of the image', () => {
-      const imagePath = __dirname + '/testObjects/testImageData';
-      const imageData = fileSystem.readFileSync(imagePath);
 
-      const imageUUID = imagePesister.saveImage(imageData); 
+    // it('returns a unique identifier upon successful completion of the image', () => {
+    //   const imagePath = __dirname + '/testObjects/testImageData';
+    //   const imageData = fileSystem.readFileSync(imagePath);
 
-      console.log('----->imageUUID', imagePesister.saveImage(imageData))
-      expect(imageUUID).to.equal(uuid)
-    });
+    //   const imageUUID = imagePesister.saveImage(imageData);
+
+    //   console.log('----->imageUUID', imagePesister.saveImage(imageData))
+    //   expect(imageUUID).to.equal(uuid)
+    // });
 
     it('saves the image at a path the same as the unique identifier', () => {});
   });
-})
+});

@@ -1,14 +1,18 @@
 const { createContainer, asFunction, asValue } = require('awilix');
 
 //external dependencies 
-const uuidv4 = require('uuid/v4');
+const uniqueIDGenerator = require('uuid/v4');
 const fileSystem = require('fs');
+
+//internal files
+const constants = require('./constants');
 
 const container = createContainer();
 
 container.register({
-  uuidv4: asValue(uuidv4),
+  uniqueIDGenerator: asValue(uniqueIDGenerator),
   fileSystem: asValue(fileSystem),
+  constants: asValue(constants),
 });
 
 module.exports = container.cradle

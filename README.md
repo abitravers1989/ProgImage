@@ -10,8 +10,7 @@ error logging
 
 
 
-NEXT : pass in config / constants with fold path name so can do integration test properly
-save files as uuid name (with given extension?)
+NEXT : move storedImages out of src
 
 refactor validation and find libary for validating it is image?
 

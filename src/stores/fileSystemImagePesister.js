@@ -1,15 +1,20 @@
-//pass in constants file / config which has fold path name for where to save images
-module.exports = ({fileSystem, uuidv4}) => ({
-  saveImage: (imageData) => {
-    //add some image validation and refactor this out
-    if(!imageData) throw new Error('No image is provided')
-  // benefits of making this a promise?
+module.exports = ({ fileSystem, uniqueIDGenerator, constants }) => ({
+  saveImage: imageData => {
+    // add some image validation and refactor this out
+    if (!imageData) throw new Error('No image is provided');
+    // benefits of making this a promise?
+    const imageID = uniqueIDGenerator();
     try {
-      fileSystem.writeFileSync('savedImage', imageData);   
-    } catch(error) {
-      console.log('Issue saving file', error)
+      fileSystem.writeFileSync(
+        `${constants.IMAGESTOREPATH}/${imageID}`,
+        imageData,
+      );
+    } catch (error) {
+      console.log('Issue saving file', error);
     }
-    return uuidv4();  
+    return imageID;
   },
- 
 });
+
+// how to get the file extension:
+// .split('.').pop().toLowerCase()
