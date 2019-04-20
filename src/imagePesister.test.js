@@ -1,41 +1,45 @@
-//const uuidv4 = require('uuid/v4');
-
 const sandbox = sinon.createSandbox();
 
 //Factory pattern
 const imagePesisterFactory = require('./imagePesister');
+
+const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
+
 const dependencies = {
-  uuidv4: sandbox.spy(),
+  fileSystem: {
+    writeFileSync: sandbox.spy()
+  },
+  uuidv4: sandbox.stub().returns(uuid),
 }
 const imagePesister = imagePesisterFactory(dependencies);
 
 describe('Image Pesister', () => {
   describe('saveImage', () => {
-    it('throws an error if no image is provided', () => {
+    describe('when it saves the image successfully', () => {
+      const imageData = '�.j�a/���K������-�KO>�W��&�\��aa��@�,�+��E�.���U�b��!�$X��%���(DR�;�gf�bQgd�O��';
+      const imageUuid = imagePesister.saveImage(imageData);
 
-      expect(() => imagePesister.saveImage()).to.throw('No image is provided');
+      it('reads the image from the path provided', () => { 
+        expect(dependencies.fileSystem.writeFileSync).to.have.been.calledWith('savedImage', imageData);
+      });
+
+      it('saves the image with a unique identifier', () => {});
+
+      it('returns a unique ID', () => {
+        expect(dependencies.uuidv4).to.have.been.called;
+        expect(imageUuid).to.equal(uuid);
+      });
     });
 
-    xit('throws an error if image input is not an image', () => {
-      const image = 'image';
-      expect(() => imagePesister.saveImage()).to.throw('Not type of image');
-    });
-
-    it('saves the image successfully', () => {
-
-    });
-
-    it('returns a unique ID, even when saving the same image twice', () => {
-      const image = 'image';
-      imagePesister.saveImage(image);
-    
-      expect(dependencies.uuidv4).to.have.been.called;
-      //integration test?
-      // const firsSave = imagePesister.saveImage(image);
-      // const secondSave = imagePesister.saveImage(image);
-      // expect(firsSave).to.be.a.uuid('v4');
-      // expect(firsSave).to.not.equal(secondSave);
-      
+    describe('when an image is not valid', () => {
+      it('throws an error if no image is provided', () => {
+        expect(() => imagePesister.saveImage()).to.throw('No image is provided');
+      });
+  
+      xit('throws an error if image input is not an image', () => {
+        const image = 'image';
+        expect(() => imagePesister.saveImage(image)).to.throw('Not type of image');
+      });
     });
   });
 });
