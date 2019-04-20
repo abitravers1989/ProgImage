@@ -10,7 +10,7 @@ const dependencies = {
   uuidv4: sandbox.stub().returns(uuid)
 }
 
-const imagePesisterFactory = require('../../src/imagePesister');
+const imagePesisterFactory = require('../../src/stores/fileSystemImagePesister');
 const imagePesister = imagePesisterFactory(dependencies);
 
 

@@ -1,7 +1,7 @@
 const sandbox = sinon.createSandbox();
 
 //Factory pattern
-const imagePesisterFactory = require('./imagePesister');
+const imagePesisterFactory = require('./fileSystemImagePesister');
 
 const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
 
