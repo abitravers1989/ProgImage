@@ -10,7 +10,7 @@ module.exports = ({ fileSystem, uniqueIDGenerator, constants }) => ({
         imageData,
       );
     } catch (error) {
-      console.log('Issue saving file', error);
+      console.error('Issue saving file', error);
     }
     return imageID;
   },
