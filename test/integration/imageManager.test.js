@@ -1,45 +1,72 @@
-// const { uniqueIDGenerator } = require('../../src/container');
+const { uniqueIDGenerator } = require('../../src/container');
 const { fileSystem } = require('../../src/container');
 const constants = require('../../src/constants');
-// console.log('----->fsTEST', fileSystem.readFile)
-const sandbox = sinon.createSandbox();
-
-const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
 
 const dependencies = {
   fileSystem,
-  uniqueIDGenerator: sandbox.stub().returns(uuid),
+  uniqueIDGenerator,
   constants,
 };
 
 const imagePesisterFactory = require('../../src/stores/fileSystemImagePesister');
-
 const imagePesister = imagePesisterFactory(dependencies);
 
-describe('image pesister', () => {
-  describe('saveImage', () => {
-    it('saves the given image data to the local file system', () => {
-      const imagePath = `${__dirname}/testObjects/testImageData`;
-      const imageData = fileSystem.readFileSync(imagePath);
-
-      imagePesister.saveImage(imageData);
-
-      const savedImage = fileSystem.readFileSync(
-        `${constants.IMAGESTOREPATH}/${uuid}`,
-      );
-      expect(savedImage).to.be.instanceof(Buffer);
+describe('File system image pesister', () => {
+  describe('saving an image', () => {
+    describe('when given an image to save with a jpeg file extension', () => {
+      it('saves the image data as provided', () => {
+        const imagePath = `${__dirname}/testObjects/testImagejpeg.jpeg`;
+        const imageData = fileSystem.readFileSync(imagePath);
+  
+        const imageID = imagePesister.saveImage(imageData);
+  
+        const savedImage = fileSystem.readFileSync(
+          `${constants.IMAGESTOREPATH}/${imageID}`,
+        );
+        expect(savedImage).to.be.instanceof(Buffer);
+      });
     });
 
-    // it('returns a unique identifier upon successful completion of the image', () => {
-    //   const imagePath = __dirname + '/testObjects/testImageData';
-    //   const imageData = fileSystem.readFileSync(imagePath);
+    describe('when given an image to save with a png file extension', () => {
+      it('saves the image data as provided', () => {
+        const imagePath = `${__dirname}/testObjects/testImagepng.png`;
+        const imageData = fileSystem.readFileSync(imagePath);
+  
+        const imageID = imagePesister.saveImage(imageData);
+  
+        const savedImage = fileSystem.readFileSync(
+          `${constants.IMAGESTOREPATH}/${imageID}`,
+        );
+        expect(savedImage).to.be.instanceof(Buffer);
+      });
+    });
 
-    //   const imageUUID = imagePesister.saveImage(imageData);
+    describe('when given an image to save with a pdf file extension', () => {
+      it('saves the image data as provided', () => {
+        const imagePath = `${__dirname}/testObjects/testImagepdf.pdf`;
+        const imageData = fileSystem.readFileSync(imagePath);
+  
+        const imageID = imagePesister.saveImage(imageData);
+  
+        const savedImage = fileSystem.readFileSync(
+          `${constants.IMAGESTOREPATH}/${imageID}`,
+        );
+        expect(savedImage).to.be.instanceof(Buffer);
+      });
+    });
 
-    //   console.log('----->imageUUID', imagePesister.saveImage(imageData))
-    //   expect(imageUUID).to.equal(uuid)
-    // });
-
-    it('saves the image at a path the same as the unique identifier', () => {});
+    describe('when given an image to save with no file extension', () => {
+      it('saves the data as provided', () => {
+        const imagePath = `${__dirname}/testObjects/testImageData`;
+        const imageData = fileSystem.readFileSync(imagePath);
+  
+        const imageID = imagePesister.saveImage(imageData);
+  
+        const savedImage = fileSystem.readFileSync(
+          `${constants.IMAGESTOREPATH}/${imageID}`,
+        );
+        expect(savedImage).to.be.instanceof(Buffer);
+      });
+    });
   });
 });
