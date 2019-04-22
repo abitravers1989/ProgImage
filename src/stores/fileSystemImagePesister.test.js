@@ -53,7 +53,6 @@ describe('File system image pesister', () => {
     });
 
     describe('when there is no folder provided to save the image to', () => {
-      // can't assert this while console.log is there
       it('throws an error', () => {
         const updatedDependencies = { ...dependencies, constants: {} };
         const updatesImagedPesister = imagePesisterFactory(updatedDependencies);

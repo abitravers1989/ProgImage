@@ -9,6 +9,7 @@ const dependencies = {
 };
 
 const imagePesisterFactory = require('../../src/stores/fileSystemImagePesister');
+
 const imagePesister = imagePesisterFactory(dependencies);
 
 describe('File system image pesister', () => {
@@ -17,9 +18,9 @@ describe('File system image pesister', () => {
       it('saves the image data as provided', () => {
         const imagePath = `${__dirname}/testObjects/testImagejpeg.jpeg`;
         const imageData = fileSystem.readFileSync(imagePath);
-  
+
         const imageID = imagePesister.saveImage(imageData);
-  
+
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
@@ -31,9 +32,9 @@ describe('File system image pesister', () => {
       it('saves the image data as provided', () => {
         const imagePath = `${__dirname}/testObjects/testImagepng.png`;
         const imageData = fileSystem.readFileSync(imagePath);
-  
+
         const imageID = imagePesister.saveImage(imageData);
-  
+
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
@@ -45,9 +46,9 @@ describe('File system image pesister', () => {
       it('saves the image data as provided', () => {
         const imagePath = `${__dirname}/testObjects/testImagepdf.pdf`;
         const imageData = fileSystem.readFileSync(imagePath);
-  
+
         const imageID = imagePesister.saveImage(imageData);
-  
+
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
@@ -59,9 +60,9 @@ describe('File system image pesister', () => {
       it('saves the data as provided', () => {
         const imagePath = `${__dirname}/testObjects/testImageData`;
         const imageData = fileSystem.readFileSync(imagePath);
-  
+
         const imageID = imagePesister.saveImage(imageData);
-  
+
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
