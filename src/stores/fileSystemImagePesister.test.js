@@ -1,10 +1,9 @@
-const sandbox = sinon.createSandbox();
 const constants = require('../constants');
-
-const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
-
 // Factory pattern
 const imagePesisterFactory = require('./fileSystemImagePesister');
+
+const sandbox = sinon.createSandbox();
+const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
 
 const dependencies = {
   fileSystem: {
@@ -55,7 +54,7 @@ describe('File system image pesister', () => {
 
     describe('when there is no folder provided to save the image to', () => {
       // can't assert this while console.log is there
-      xit('throws an error', () => {
+      it('throws an error', () => {
         const updatedDependencies = { ...dependencies, constants: {} };
         const updatesImagedPesister = imagePesisterFactory(updatedDependencies);
         const imageData =

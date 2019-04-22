@@ -1,3 +1,3 @@
 module.exports = {
-  IMAGESTOREPATH: `${__dirname}/storedImages`,
+  IMAGESTOREPATH: '/Users/abitravers/gitDir/progImage/storedImages',
 };
