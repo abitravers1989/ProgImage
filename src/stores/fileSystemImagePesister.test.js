@@ -51,18 +51,16 @@ describe('File system image pesister', () => {
         );
       });
     });
+  });
 
-    describe('when there is no folder provided to save the image to', () => {
-      it('throws an error', () => {
-        const updatedDependencies = { ...dependencies, constants: {} };
-        const updatesImagedPesister = fileSystemImagePesisterFactory(updatedDependencies);
-        const imageData =
-          '�.j�a/���K������-�KO>�W��&���aa��@�,�+��E�.���U�b��!�$X';
+  describe('when there is no folder provided to save the image to', () => {
+    it('throws an error', () => {
+      const updatedDependencies = { ...dependencies, constants: {} };
 
-        expect(() => updatesImagedPesister.saveImage(imageData)).to.throw(
-          'Folder for image to be saved to must be provided',
-        );
-      });
+      expect(() => fileSystemImagePesisterFactory(updatedDependencies)).to.throw(
+        'Folder for image to be saved to must be provided in constants folder',
+      );
     });
   });
+
 });
