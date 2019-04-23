@@ -84,6 +84,7 @@ describe('File system image retriever', () => {
     const retrievedImage = imageRetriever.retrieveImage(imageID);
 
     //to exist?
+    //toBeDefined 
     expect(retrievedImage).to.be.true;
   })
 })
