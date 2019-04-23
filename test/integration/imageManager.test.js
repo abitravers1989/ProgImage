@@ -2,17 +2,15 @@ const { uniqueIDGenerator } = require('../../src/container');
 const { fileSystem } = require('../../src/container');
 const constants = require('../../src/constants');
 
-const dependencies = {
-  fileSystem,
-  uniqueIDGenerator,
-  constants,
-};
-
-const imagePesisterFactory = require('../../src/stores/fileSystemImagePesister');
-
-const imagePesister = imagePesisterFactory(dependencies);
-
 describe('File system image pesister', () => {
+  const dependencies = {
+    fileSystem,
+    uniqueIDGenerator,
+    constants,
+  };
+  const fileSystemImagePesisterFactory = require('../../src/stores/fileSystemImagePesister');
+  const imagePesister = fileSystemImagePesisterFactory(dependencies);
+
   describe('saving an image', () => {
     describe('when given an image to save with a jpeg file extension', () => {
       it('saves the image data as provided', () => {
@@ -70,14 +68,22 @@ describe('File system image pesister', () => {
       });
     });
   });
-
-  describe('retrieving an image', () => {
-    it('returns the image stored at the given id', () => {
-      const imageID = '0a8d5e31-af5c-49ad-9284-706946f74dcd';
-
-      const retrievedImage = imagePesister.retrieveImage(imageID);
-
-      expect(retrievedImage).to.be.true;
-    })
-  })
 });
+
+describe('File system image retriever', () => {
+  const dependencies = {
+    fileSystem,
+    constants,
+  };
+  const fileSystemImageRetriverFactory = require('../../src/stores/fileSystemImageRetriver');
+  const imageRetriever = fileSystemImageRetriverFactory(dependencies);
+
+  it('returns the image stored at the given id', () => {
+    const imageID = '0a8d5e31-af5c-49ad-9284-706946f74dcd';
+
+    const retrievedImage = imageRetriever.retrieveImage(imageID);
+
+    //to exist?
+    expect(retrievedImage).to.be.true;
+  })
+})
