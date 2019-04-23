@@ -20,10 +20,10 @@ describe('File system image pesister', () => {
         const imageData = fileSystem.readFileSync(imagePath);
 
         const imageID = imagePesister.saveImage(imageData);
-
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
+
         expect(savedImage).to.be.instanceof(Buffer);
       });
     });
@@ -34,10 +34,10 @@ describe('File system image pesister', () => {
         const imageData = fileSystem.readFileSync(imagePath);
 
         const imageID = imagePesister.saveImage(imageData);
-
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
+
         expect(savedImage).to.be.instanceof(Buffer);
       });
     });
@@ -48,10 +48,10 @@ describe('File system image pesister', () => {
         const imageData = fileSystem.readFileSync(imagePath);
 
         const imageID = imagePesister.saveImage(imageData);
-
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
+
         expect(savedImage).to.be.instanceof(Buffer);
       });
     });
@@ -62,12 +62,22 @@ describe('File system image pesister', () => {
         const imageData = fileSystem.readFileSync(imagePath);
 
         const imageID = imagePesister.saveImage(imageData);
-
         const savedImage = fileSystem.readFileSync(
           `${constants.IMAGESTOREPATH}/${imageID}`,
         );
+
         expect(savedImage).to.be.instanceof(Buffer);
       });
     });
   });
+
+  describe('retrieving an image', () => {
+    it('returns the image stored at the given id', () => {
+      const imageID = '0a8d5e31-af5c-49ad-9284-706946f74dcd';
+
+      const retrievedImage = imagePesister.retrieveImage(imageID);
+
+      expect(retrievedImage).to.be.true;
+    })
+  })
 });
