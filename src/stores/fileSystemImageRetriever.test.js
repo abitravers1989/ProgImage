@@ -1,5 +1,5 @@
 const constants = require('../constants');
-const { uniqueIDGenerator } = require('../../src/container');
+const { uniqueIDGenerator } = require('../container');
 // Factory pattern
 const FileSystemImageRetrieverFactory = require('./fileSystemImageRetriever');
 
@@ -15,25 +15,27 @@ const dependencies = {
 const { fileSystem } = dependencies;
 const imageRetriever = FileSystemImageRetrieverFactory(dependencies);
 
-describe('File system image Retriever', () => {
-  describe('retrieveImage', () => {
+describe('File system image retriever', () => {
+  describe('getImage', () => {
     describe('when it retrieves the image successfully', () => {
       it('reads the image data which is stored under the provided ID', () => {
         const imageID = uniqueIDGenerator();
-        
-        imageRetriever.retrieveImage(imageID);
 
-        expect(fileSystem.readFileSync).to.have.been.calledWith(`${constants.IMAGESTOREPATH}/${imageID}`);
+        imageRetriever.getImage(imageID);
+
+        expect(fileSystem.readFileSync).to.have.been.calledWith(
+          `${constants.IMAGESTOREPATH}/${imageID}`,
+        );
       });
 
       it('returns the image data which is stored under the provided ID', () => {
         const imageID = uniqueIDGenerator();
-        
-        const imageData = imageRetriever.retrieveImage(imageID);
+
+        const imageData = imageRetriever.getImage(imageID);
 
         expect(imageData).to.equal('�.j�a/���K������-�KO>�W��&���aa�');
       });
-
     });
   });
 });
+
