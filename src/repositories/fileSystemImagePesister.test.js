@@ -1,22 +1,26 @@
-const {envVariables} = require('../container');
+const { envVariables } = require('../container');
 // Factory pattern
 const fileSystemImagePesisterFactory = require('./fileSystemImagePesister');
 
-const sandbox = sinon.createSandbox();
-const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
-
-const dependencies = {
-  fileSystem: {
-    writeFileSync: sandbox.spy(),
-  },
-  uniqueIDGenerator: sandbox.stub().returns(uuid),
-  envVariables,
-};
-
-const { fileSystem, uniqueIDGenerator } = dependencies;
-const imagePesister = fileSystemImagePesisterFactory(dependencies);
-
 describe('File system image pesister', () => {
+  const sandbox = sinon.createSandbox();
+  const uuid = 'c2028c2f-178e-4b8c-8c24-02d94e32d17f';
+
+  const dependencies = {
+    fileSystem: {
+      writeFileSync: sandbox.spy(),
+    },
+    uniqueIDGenerator: sandbox.stub().returns(uuid),
+    envVariables,
+  };
+
+  const { fileSystem, uniqueIDGenerator } = dependencies;
+  const imagePesister = fileSystemImagePesisterFactory(dependencies);
+
+  afterEach(() => sandbox.reset());
+
+  after(() => sandbox.restore());
+
   describe('saveImage', () => {
     describe('when it saves the image successfully', () => {
       const imageData =
