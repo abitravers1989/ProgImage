@@ -18,7 +18,6 @@ describe('server', () => {
     },
     middleware: { 
       init: sandbox.stub().resolves({}),
-      disconnect: sandbox.stub()
     }
   }
 

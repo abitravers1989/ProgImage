@@ -2,12 +2,12 @@ module.exports = ({app, envVariables, logger, middleware}) => {
   let server;
 
   return {
-    start: async () => {
+    start: () => {
       try {
-        await middleware.init();
-
+        // not sure what benefit 
+        middleware.init();
         server = app.listen(envVariables.PORT, () => {
-          logger.info(`Application listening on ${server.address().port}`)
+          logger.info(`Application listening on port ${server.address().port}`)
         })
       } catch (error) {
         process.exit(1)
