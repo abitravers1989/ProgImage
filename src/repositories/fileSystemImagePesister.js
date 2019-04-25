@@ -1,6 +1,4 @@
-module.exports = ({ fileSystem, uniqueIDGenerator, constants }) => {
-  if (!constants.IMAGESTOREPATH)
-      throw new Error('Folder for image to be saved to must be provided in constants folder');
+module.exports = ({ fileSystem, uniqueIDGenerator, envVariables }) => {
   return {
   saveImage: imageData => {
     // add some image validation and refactor this out
@@ -13,7 +11,7 @@ module.exports = ({ fileSystem, uniqueIDGenerator, constants }) => {
     // try {
     // this error should instead be handled in image manager
     fileSystem.writeFileSync(
-      `${constants.IMAGESTOREPATH}/${imageID}`,
+      `${envVariables.IMAGESTOREPATH}/${imageID}`,
       imageData,
     );
     // } catch (error) {

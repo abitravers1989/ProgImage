@@ -7,10 +7,9 @@ const express = require('express');
 const getenv = require('getenv');
 
 // Internal Files
-const constants = require('./constants');
-const fileSystemImagePesister = require('./stores/fileSystemImagePesister');
-const fileSystemImageRetriever = require('./stores/fileSystemImageRetriever');
-const imageManager = require('./stores/imageManager');
+const fileSystemImagePesister = require('./repositories/fileSystemImagePesister');
+const fileSystemImageRetriever = require('./repositories/fileSystemImageRetriever');
+const imageManager = require('./repositories/imageManager');
 const server = require('./server');
 
 const container = createContainer();
@@ -24,11 +23,11 @@ try {
   })
   if(!envVariables.IMAGESTOREPATH) {
     // do isValid method and throw new TypeError
-    throw new Error('Folder for image to be saved to must be provided in constants folder');
+    throw new Error('Folder for image to be saved to must be provided');
   }
 } catch (error) {
   //replace with logger 
-  console.fatal(error, 'Error while loading enviornment variables')
+  console.error(error, 'Error while loading enviornment variables')
 }
 
 // External Libaries
@@ -41,7 +40,6 @@ container.register({
 // Config 
 container.register({
   envVariables: asValue(envVariables),
-  constants: asValue(constants),
 });
 
 // Utils

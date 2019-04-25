@@ -3,14 +3,14 @@ const {
   fileSystem,
   fileSystemImagePesister,
   fileSystemImageRetriever,
+  envVariables,
 } = require('../../src/container');
-const constants = require('../../src/constants');
 
 describe('File system image pesister', () => {
   const dependencies = {
     fileSystem,
     uniqueIDGenerator,
-    constants,
+    envVariables,
   };
 
   const imagePesister = fileSystemImagePesister(dependencies);
@@ -23,7 +23,7 @@ describe('File system image pesister', () => {
 
         const imageID = imagePesister.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${constants.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGESTOREPATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
@@ -37,7 +37,7 @@ describe('File system image pesister', () => {
 
         const imageID = imagePesister.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${constants.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGESTOREPATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
@@ -51,7 +51,7 @@ describe('File system image pesister', () => {
 
         const imageID = imagePesister.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${constants.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGESTOREPATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
@@ -65,7 +65,7 @@ describe('File system image pesister', () => {
 
         const imageID = imagePesister.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${constants.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGESTOREPATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
@@ -77,7 +77,7 @@ describe('File system image pesister', () => {
 describe('File system image retriever', () => {
   const dependencies = {
     fileSystem,
-    constants,
+    envVariables,
   };
 
   const imageRetriever = fileSystemImageRetriever(dependencies);

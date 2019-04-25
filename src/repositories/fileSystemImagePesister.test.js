@@ -1,4 +1,4 @@
-const constants = require('../constants');
+const {envVariables} = require('../container');
 // Factory pattern
 const fileSystemImagePesisterFactory = require('./fileSystemImagePesister');
 
@@ -10,7 +10,7 @@ const dependencies = {
     writeFileSync: sandbox.spy(),
   },
   uniqueIDGenerator: sandbox.stub().returns(uuid),
-  constants,
+  envVariables,
 };
 
 const { fileSystem, uniqueIDGenerator } = dependencies;
@@ -25,7 +25,7 @@ describe('File system image pesister', () => {
 
       it('writes the data to the supplied folder labeling it with a unique id', () => {
         expect(fileSystem.writeFileSync).to.have.been.calledWith(
-          `${constants.IMAGESTOREPATH}/${uuid}`,
+          `${envVariables.IMAGESTOREPATH}/${uuid}`,
           imageData,
         );
       });
@@ -52,15 +52,4 @@ describe('File system image pesister', () => {
       });
     });
   });
-
-  describe('when there is no folder provided to save the image to', () => {
-    it('throws an error', () => {
-      const updatedDependencies = { ...dependencies, constants: {} };
-
-      expect(() => fileSystemImagePesisterFactory(updatedDependencies)).to.throw(
-        'Folder for image to be saved to must be provided in constants folder',
-      );
-    });
-  });
-
 });

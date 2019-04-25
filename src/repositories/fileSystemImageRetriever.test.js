@@ -1,5 +1,4 @@
-const constants = require('../constants');
-const { uniqueIDGenerator } = require('../container');
+const { uniqueIDGenerator, envVariables } = require('../container');
 // Factory pattern
 const FileSystemImageRetrieverFactory = require('./fileSystemImageRetriever');
 
@@ -9,7 +8,7 @@ const dependencies = {
   fileSystem: {
     readFileSync: sandbox.stub().returns('�.j�a/���K������-�KO>�W��&���aa�'),
   },
-  constants,
+  envVariables,
 };
 
 const { fileSystem } = dependencies;
@@ -24,7 +23,7 @@ describe('File system image retriever', () => {
         imageRetriever.getImage(imageID);
 
         expect(fileSystem.readFileSync).to.have.been.calledWith(
-          `${constants.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGESTOREPATH}/${imageID}`,
         );
       });
 
