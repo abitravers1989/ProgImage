@@ -4,6 +4,7 @@
   "description": "microservice to store and process images",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha $(find src -name '*.test.js')",
     "test:integration": "mocha $(find test/integration -name '*.test.js')",
@@ -15,6 +16,7 @@
     "awilix": "^4.2.1",
     "express": "^4.16.4",
     "getenv": "^0.7.0",
+    "morgan": "^1.9.1",
     "uuid": "^3.3.2",
     "validator": "^10.11.0"
   },
@@ -24,6 +26,7 @@
     "mocha": "^6.1.4",
     "nyc": "^14.0.0",
     "sinon": "^7.3.1",
-    "sinon-chai": "^3.3.0"
+    "sinon-chai": "^3.3.0",
+    "winston": "^3.2.1"
   }
 }
