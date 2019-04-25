@@ -34,7 +34,7 @@ describe('File system image pesister', () => {
         );
       });
 
-      it('returns the unique identifier the images is saved as', () => {
+      it('returns the unique identifier that the images is saved as', () => {
         expect(uniqueIDGenerator).to.have.been.called;
         expect(imageId).to.equal(uuid);
       });

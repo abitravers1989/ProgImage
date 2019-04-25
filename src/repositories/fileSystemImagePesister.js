@@ -2,14 +2,12 @@ module.exports = ({ fileSystem, uniqueIDGenerator, envVariables }) => {
   return {
   saveImage: imageData => {
     // add some image validation and refactor this out
-    // this is an uncaught error
+    // this is an uncaught error at the min .. need to catch this error in route and return it
     if (!imageData) throw new Error('No image is provided');
-    // this error needs to be handled by the image manager
-    
     // benefits of making this a promise?
     const imageID = uniqueIDGenerator();
     // try {
-    // this error should instead be handled in image manager
+    // this error should instead be handled in ROUTE so can return error?
     fileSystem.writeFileSync(
       `${envVariables.IMAGESTOREPATH}/${imageID}`,
       imageData,

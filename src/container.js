@@ -5,6 +5,8 @@ const uniqueIDGenerator = require('uuid/v4');
 const fileSystem = require('fs');
 const express = require('express');
 const getenv = require('getenv');
+const validator = require('validator');
+//const { isUUID } = require('validator');
 
 // Internal Files
 const fileSystemImagePesister = require('./repositories/fileSystemImagePesister');
@@ -35,6 +37,7 @@ container.register({
   uniqueIDGenerator: asValue(uniqueIDGenerator),
   fileSystem: asValue(fileSystem),
   app: asFunction(express).singleton(),
+  validator: asValue(validator),
 });
 
 // Config 

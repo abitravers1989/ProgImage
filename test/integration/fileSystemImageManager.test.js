@@ -4,6 +4,7 @@ const {
   fileSystemImagePesister,
   fileSystemImageRetriever,
   envVariables,
+  validator,
 } = require('../../src/container');
 
 describe('File system image pesister', () => {
@@ -78,15 +79,25 @@ describe('File system image retriever', () => {
   const dependencies = {
     fileSystem,
     envVariables,
+    validator,
   };
 
   const imageRetriever = fileSystemImageRetriever(dependencies);
 
   it('returns the image stored at the given id', () => {
     const imageID = '0a8d5e31-af5c-49ad-9284-706946f74dcd';
-
     const retrievedImage = imageRetriever.getImage(imageID);
 
     expect(retrievedImage).to.be.instanceof(Buffer);
+  });
+
+  describe('when an invalid image ID is provided', () => {
+    it('throws an error if image ID is not a uuid', () => {
+      const invalidImageID = '0a8d5e';
+
+      expect(() => imageRetriever.getImage(invalidImageID)).to.throw(
+        'A valid image ID must be provided',
+      );
+    });
   });
 });

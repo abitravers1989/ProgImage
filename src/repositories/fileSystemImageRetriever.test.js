@@ -9,6 +9,9 @@ describe('File system image retriever', () => {
       readFileSync: sandbox.stub().returns('�.j�a/���K������-�KO>�W��&���aa�'),
     },
     envVariables,
+    validator: {
+      isUUID: sandbox.stub().returns(true),
+    },
   };
 
   const { fileSystem } = dependencies;
@@ -42,6 +45,14 @@ describe('File system image retriever', () => {
       });
 
       it('throws an error if the image ID paramater passed is not a uuid', () => {
+        const newDependencies = {
+          ...dependencies,
+          validator: {
+            isUUID: sandbox.stub().returns(false),
+          },
+        };
+
+        FileSystemImageRetrieverFactory(newDependencies);
         const incorrectImageID = '33333';
         expect(() => imageRetriever.getImage(incorrectImageID)).to.throw(
           'A valid image ID must be provided',
