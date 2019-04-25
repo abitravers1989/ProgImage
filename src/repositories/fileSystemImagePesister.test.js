@@ -17,17 +17,15 @@ describe('File system image pesister', () => {
   const { fileSystem, uniqueIDGenerator } = dependencies;
   const imagePesister = fileSystemImagePesisterFactory(dependencies);
 
-  afterEach(() => sandbox.reset());
-
   after(() => sandbox.restore());
 
   describe('saveImage', () => {
     describe('when it saves the image successfully', () => {
-      const imageData =
-        '�.j�a/���K������-�KO>�W��&���aa��@�,�+��E�.���U�b��!�$X';
-      const imageId = imagePesister.saveImage(imageData);
-
       it('writes the data to the supplied folder labeling it with a unique id', () => {
+        const imageData =
+          '�.j�a/���K������-�KO>�W��&���aa��@�,�+��E�.���U�b��!�$X';
+        imagePesister.saveImage(imageData);
+
         expect(fileSystem.writeFileSync).to.have.been.calledWith(
           `${envVariables.IMAGESTOREPATH}/${uuid}`,
           imageData,
@@ -35,6 +33,10 @@ describe('File system image pesister', () => {
       });
 
       it('returns the unique identifier that the images is saved as', () => {
+        const imageData =
+          '�.j�a/���K������-�KO>�W��&���aa��@�,�+��E�.���U�b��!�$X';
+        const imageId = imagePesister.saveImage(imageData);
+
         expect(uniqueIDGenerator).to.have.been.called;
         expect(imageId).to.equal(uuid);
       });
