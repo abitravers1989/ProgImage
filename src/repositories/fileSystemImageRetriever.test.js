@@ -44,7 +44,7 @@ describe('File system image retriever', () => {
         );
       });
 
-      it('throws an error if the image ID paramater passed is not a uuid', () => {
+      it('throws an error if the image ID parameter passed is not a uuid', () => {
         const newDependencies = {
           ...dependencies,
           validator: {
