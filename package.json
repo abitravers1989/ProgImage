@@ -4,16 +4,17 @@
   "description": "microservice to store and process images",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "dotenv node src/index.js",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha $(find src -name '*.test.js')",
-    "test:integration": "mocha $(find test/integration -name '*.test.js')",
+    "test:integration": "dotenv mocha $(find test/integration -name '*.test.js')",
     "test:coverage": "nyc npm run test:unit"
   },
-  "author": "abi travers",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "awilix": "^4.2.1",
+    "dotenv-cli": "^2.0.0",
     "express": "^4.16.4",
     "getenv": "^0.7.0",
     "morgan": "^1.9.1",

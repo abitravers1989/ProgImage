@@ -3,18 +3,18 @@ const {
   uniqueIDGenerator,
   envVariables,
   validator,
-  fileSystemImagePesister,
+  fileSystemImagePersister,
   fileSystemImageRetriever,
   imageManager,
 } = require('../../src/container');
 
 describe('file system image manager', () => {
-  const imagePesisterDependencies = {
+  const imagePersisterDependencies = {
     fileSystem,
     uniqueIDGenerator,
     envVariables,
   };
-  const imagePesister = fileSystemImagePesister(imagePesisterDependencies);
+  const imagePersister = fileSystemImagePersister(imagePersisterDependencies);
 
   const ImageRetrieverDependencies = {
     fileSystem,
@@ -23,9 +23,8 @@ describe('file system image manager', () => {
   };
 
   const imageRetriever = fileSystemImageRetriever(ImageRetrieverDependencies);
-  // try one also with the dependencies going in the wrong way
   const fileSystemImageManager = imageManager({
-    imagePesister,
+    imagePersister,
     imageRetriever,
   });
 

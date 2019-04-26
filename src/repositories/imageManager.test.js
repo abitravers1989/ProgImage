@@ -21,7 +21,7 @@ describe('image manager', () => {
   after(() => sandbox.restore());
 
   describe('save image', () => {
-    it('calls save functionality on the provided persister', () => {
+    it('calls save functionality on the provided image persister', () => {
       const imageData = '�.j�a/���K������-�KO>�W��&���aa��@�,�+��E�.���U�b';
 
       imageManager.saveImage(imageData);
@@ -31,7 +31,7 @@ describe('image manager', () => {
   });
 
   describe('get image', () => {
-    it('calls save functionality on the provided persister', () => {
+    it('calls get functionality on the provided image retriever', () => {
       const imageId = uniqueIDGenerator();
 
       imageManager.getImage(imageId);

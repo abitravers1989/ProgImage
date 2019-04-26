@@ -11,7 +11,7 @@ const morgan = require('morgan');
 //const { isUUID } = require('validator');
 
 // Internal Files
-const fileSystemImagePesister = require('./repositories/fileSystemImagePesister');
+const fileSystemImagePersister = require('./repositories/fileSystemImagePersister');
 const fileSystemImageRetriever = require('./repositories/fileSystemImageRetriever');
 const imageManager = require('./repositories/imageManager');
 const server = require('./server');
@@ -60,7 +60,7 @@ container.register({
 
 // Repositories
 container.register({
-  fileSystemImagePesister: asValue(fileSystemImagePesister),
+  fileSystemImagePersister: asValue(fileSystemImagePersister),
   fileSystemImageRetriever: asValue(fileSystemImageRetriever),
   imageManager: asValue(imageManager),
 });

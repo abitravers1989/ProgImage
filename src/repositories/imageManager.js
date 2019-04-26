@@ -1,4 +1,4 @@
-module.exports = ({ imagePesister, imageRetriever }) => ({
-  saveImage: imageData => imagePesister.saveImage(imageData),
+module.exports = ({ imagePersister, imageRetriever }) => ({
+  saveImage: imageData => imagePersister.saveImage(imageData),
   getImage: imageId => imageRetriever.getImage(imageId),
 });
