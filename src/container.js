@@ -8,6 +8,7 @@ const getenv = require('getenv');
 const validator = require('validator');
 const winston = require('winston');
 const morgan = require('morgan');
+const bodyParser = require('body-parser')
 //const { isUUID } = require('validator');
 
 // Internal Files
@@ -16,6 +17,8 @@ const fileSystemImageRetriever = require('./repositories/fileSystemImageRetrieve
 const imageManager = require('./repositories/imageManager');
 const server = require('./server');
 const middleware = require('./middleware/index');
+const imageRoutes = require('./rest/routes/images');
+const routes = require('./rest/index');
 
 const container = createContainer();
 
@@ -43,6 +46,7 @@ container.register({
   validator: asValue(validator),
   logger: asValue(winston),
   morgan: asValue(morgan),
+  bodyParser: asValue(bodyParser),
 });
 
 // Config 
@@ -56,12 +60,14 @@ container.register({
 container.register({
   server: asFunction(server).singleton(),
   middleware: asFunction(middleware).singleton(),
+  routes: asFunction(routes),
+  imageRoutes: asFunction(imageRoutes),
 });
 
 // Repositories
 container.register({
-  fileSystemImagePersister: asValue(fileSystemImagePersister),
-  fileSystemImageRetriever: asValue(fileSystemImageRetriever),
+  fileSystemImagePersister: asValue(fileSystemImagePersister({fileSystem, uniqueIDGenerator, envVariables})),
+  fileSystemImageRetriever: asValue(fileSystemImageRetriever({fileSystem, envVariables, validator})),
   imageManager: asValue(imageManager),
 });
 

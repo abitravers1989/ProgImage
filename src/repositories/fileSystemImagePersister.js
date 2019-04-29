@@ -1,5 +1,4 @@
-module.exports = ({ fileSystem, uniqueIDGenerator, envVariables }) => {
-  return {
+module.exports = ({ fileSystem, uniqueIDGenerator, envVariables }) => ({
   saveImage: imageData => {
     // add some image validation and refactor this out
     // this is an uncaught error at the min .. need to catch this error in route and return it
@@ -17,8 +16,7 @@ module.exports = ({ fileSystem, uniqueIDGenerator, envVariables }) => {
     // }
     return imageID;
   },
-}
-};
+});
 
 // how to get the file extension:
 // .split('.').pop().toLowerCase()
