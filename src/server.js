@@ -7,6 +7,7 @@ module.exports = ({ app, envVariables, logger, middleware, routes, bodyParser })
         // not sure what benefit
         middleware.init();
         //move this out to middlewar
+        //need to test
         app.use(bodyParser.json());
         routes.setupEndpoints(app);
         server = app.listen(envVariables.PORT, () => {
