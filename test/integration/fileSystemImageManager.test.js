@@ -9,20 +9,20 @@ const {
 } = require('../../src/container');
 
 describe('file system image manager', () => {
-  const imagePersisterDependencies = {
-    fileSystem,
-    uniqueIDGenerator,
-    envVariables,
-  };
-  const imagePersister = fileSystemImagePersister(imagePersisterDependencies);
+  // const imagePersisterDependencies = {
+  //   fileSystem,
+  //   uniqueIDGenerator,
+  //   envVariables,
+  // };
+  const imagePersister = fileSystemImagePersister;
 
-  const ImageRetrieverDependencies = {
-    fileSystem,
-    envVariables,
-    validator,
-  };
+  // const ImageRetrieverDependencies = {
+  //   fileSystem,
+  //   envVariables,
+  //   validator,
+  // };
 
-  const imageRetriever = fileSystemImageRetriever(ImageRetrieverDependencies);
+  const imageRetriever = fileSystemImageRetriever;
   const fileSystemImageManager = imageManager({
     imagePersister,
     imageRetriever,
