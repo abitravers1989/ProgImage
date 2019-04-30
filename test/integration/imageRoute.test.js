@@ -11,7 +11,7 @@ afterEach(() => {
   server.stop();
 });
 
-describe.only('GET /getImage', () => {
+describe('GET /getImage', () => {
   describe('when the given imageID is matched to a valid stored image', () => {
     it('returns a 200 status code and the valid image', async () => {
       const validImageID = 'dd301786-9b3a-4972-8be6-e77f2763eaf2';
@@ -77,5 +77,3 @@ describe.only('GET /getImage', () => {
     });
   });
 });
-
-('when the given imageID does not match a stored image');

@@ -1,9 +1,9 @@
 module.exports = ({ logger, fileSystemImageRetriever }) => ({
-  getImage: async (req, res) => {
+  getImage: (req, res) => {
     const { imageID } = req.query;
     let returnImage;
     try {
-      returnImage = await fileSystemImageRetriever.getImage(imageID);
+      returnImage = fileSystemImageRetriever.getImage(imageID);
     } catch (error) {
       logger.error(error.message);
       if (error.message.includes('ENOENT')) {

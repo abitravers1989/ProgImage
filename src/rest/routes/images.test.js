@@ -35,7 +35,7 @@ describe('routes/images', () => {
 
   describe('when the given imageID is matched to a valid stored image', () => {
     // eg http://localhost:3000/getImage?imageID=dd301786-9b3a-4972-8be6-e77f2763eaf2
-    it('returns a 200 and the valid image', async () => {
+    it('returns a 200 and the valid image', () => {
       const imageID = uniqueIDGenerator();
       const req = {
         query: {
@@ -46,7 +46,7 @@ describe('routes/images', () => {
 
       fileSystemImageRetriever.getImage.returns(expectedImage);
 
-      await imagesRoute.getImage(req, res);
+      imagesRoute.getImage(req, res);
 
       expect(fileSystemImageRetriever.getImage).to.have.been.calledWithExactly(
         imageID,
