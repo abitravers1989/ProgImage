@@ -1,9 +1,27 @@
-module.exports = ({ logger, fileSystemImageRetriever }) => ({
+module.exports = ({ logger, fileSystemImageRetriever, jimp, validator }) => ({
   getImage: (req, res) => {
     const { imageID } = req.query;
+    const desiredImageExtension = imageID.split('.').pop().toLowerCase();
+    const imageIDWithoutExtension = imageID.split('.').slice(0, -1).join('.');
+  
+    console.log('----->imageIDWithoutExtension', imageIDWithoutExtension)
+
     let returnImage;
+    let newImage;
     try {
-      returnImage = fileSystemImageRetriever.getImage(imageID);
+
+      const newImagePath = `${imageID}.${desiredImageExtension}`
+      returnImage = fileSystemImageRetriever.getImage(imageIDWithoutExtension);
+      jimp.read(returnImage)
+      .then(image => {
+        return image
+          .write(newImagePath)
+      })
+      .catch(err => {
+        logger.error(err)
+      })
+      //newImage = fileSystemImageRetriever.getImage(newImagePath)
+
     } catch (error) {
       logger.error(error.message);
       if (error.message.includes('ENOENT')) {
@@ -17,6 +35,6 @@ module.exports = ({ logger, fileSystemImageRetriever }) => ({
       // return next(error);
     }
     // logger.info('Successfully returned image from ID:', imageID)
-    return res.status(200).json({ returnImage });
+    return res.status(200).json(newImage);
   },
 });

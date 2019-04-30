@@ -52,9 +52,7 @@ describe('routes/images', () => {
         imageID,
       );
       expect(res.status).to.have.been.calledWithExactly(200);
-      expect(res.json).to.have.been.calledWithExactly({
-        returnImage: expectedImage,
-      });
+      expect(res.json).to.have.been.calledWithExactly(expectedImage);
     });
   });
 

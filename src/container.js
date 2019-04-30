@@ -8,7 +8,8 @@ const getenv = require('getenv');
 const validator = require('validator');
 const winston = require('winston');
 const morgan = require('morgan');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const jimp = require('jimp');
 //const { isUUID } = require('validator');
 
 // Internal Files
@@ -38,7 +39,7 @@ try {
   console.error(error, 'Error while loading enviornment variables')
 }
 
-// External Libaries
+// External Libraries
 container.register({
   uniqueIDGenerator: asValue(uniqueIDGenerator),
   fileSystem: asValue(fileSystem),
@@ -47,6 +48,7 @@ container.register({
   logger: asValue(winston),
   morgan: asValue(morgan),
   bodyParser: asValue(bodyParser),
+  jimp: asValue(jimp),
 });
 
 // Config 

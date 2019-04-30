@@ -13,7 +13,7 @@ afterEach(() => {
 
 describe('GET /getImage', () => {
   describe('when the given imageID is matched to a valid stored image', () => {
-    it('returns a 200 status code and the valid image', async () => {
+    it('returns a 200 status code and the valid image', () => {
       const validImageID = 'dd301786-9b3a-4972-8be6-e77f2763eaf2';
       const expectResult = fileSystem.readFileSync(
         `${__dirname}/utils/imageBuffer`,
@@ -23,7 +23,7 @@ describe('GET /getImage', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .then(response => {
-          const result = response.body.returnImage;
+          const result = response.body;
           expect(result.type).to.deep.equal('Buffer');
           // expect(result.data).to.deep.equal(expectResult);
         });
