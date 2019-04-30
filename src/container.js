@@ -10,6 +10,7 @@ const winston = require('winston');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jimp = require('jimp');
+const sharp = require('sharp');
 //const { isUUID } = require('validator');
 
 // Internal Files
@@ -49,6 +50,7 @@ container.register({
   morgan: asValue(morgan),
   bodyParser: asValue(bodyParser),
   jimp: asValue(jimp),
+  sharp: asValue(sharp),
 });
 
 // Config 

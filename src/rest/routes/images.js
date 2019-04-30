@@ -1,27 +1,29 @@
-module.exports = ({ logger, fileSystemImageRetriever, jimp, validator }) => ({
+module.exports = ({ logger, fileSystemImageRetriever, sharp }) => ({
   getImage: (req, res) => {
-    const { imageID } = req.query;
-    const desiredImageExtension = imageID.split('.').pop().toLowerCase();
-    const imageIDWithoutExtension = imageID.split('.').slice(0, -1).join('.');
-  
-    console.log('----->imageIDWithoutExtension', imageIDWithoutExtension)
-
+    const requestedImage = req.query.imageID;
+   
+    const desiredImageExtension = requestedImage.split('.')[1];
+    console.log('----->desiredImageExtension', desiredImageExtension)
+    
+      const imageId = requestedImage.split('.')[0];
+    
     let returnImage;
-    let newImage;
-    try {
-
-      const newImagePath = `${imageID}.${desiredImageExtension}`
-      returnImage = fileSystemImageRetriever.getImage(imageIDWithoutExtension);
-      jimp.read(returnImage)
-      .then(image => {
-        return image
-          .write(newImagePath)
+    let transformedImage
+    try {  
+      console.log('-----?????>', imageId)
+      returnImage = fileSystemImageRetriever.getImage(imageId);
+      console.log('----->desiredImageExtension', desiredImageExtension)
+      if (!desiredImageExtension) {
+        return res.status(200).json(returnImage)
+      }
+      transformedImage = sharp(returnImage)
+      .toFormat(desiredImageExtension)
+      .toBuffer((error, data, info) => {
+        if(error) logger.error(error)
+        console.log('-----data>', data)
+        return data //.options.input.buffer.data
       })
-      .catch(err => {
-        logger.error(err)
-      })
-      //newImage = fileSystemImageRetriever.getImage(newImagePath)
-
+      console.log('------>jkjkjkjkj', transformedImage.options.input)
     } catch (error) {
       logger.error(error.message);
       if (error.message.includes('ENOENT')) {
@@ -35,6 +37,6 @@ module.exports = ({ logger, fileSystemImageRetriever, jimp, validator }) => ({
       // return next(error);
     }
     // logger.info('Successfully returned image from ID:', imageID)
-    return res.status(200).json(newImage);
+    return res.status(200).json(transformedImage.options.input.buffer);
   },
 });
