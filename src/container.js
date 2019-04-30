@@ -11,7 +11,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jimp = require('jimp');
 const sharp = require('sharp');
-//const { isUUID } = require('validator');
+// const { isUUID } = require('validator');
 
 // Internal Files
 const fileSystemImagePersister = require('./repositories/fileSystemImagePersister');
@@ -29,15 +29,14 @@ let envVariables;
 try {
   envVariables = getenv.multi({
     PORT: ['PORT', 3000],
-    IMAGESTOREPATH: ['IMAGESTOREPATH']
-  })
-  if(!envVariables.IMAGESTOREPATH) {
-    // do isValid method and throw new TypeError
+    IMAGESTOREPATH: ['IMAGESTOREPATH'],
+  });
+  if (!envVariables.IMAGESTOREPATH) {
+    // TODO isValid method and throw new TypeError
     throw new Error('Folder for image to be saved to must be provided');
   }
 } catch (error) {
-  //replace with logger 
-  console.error(error, 'Error while loading enviornment variables')
+  winston.error(error, 'Error while loading environment variables');
 }
 
 // External Libraries
@@ -53,12 +52,15 @@ container.register({
   sharp: asValue(sharp),
 });
 
-// Config 
+// Config
 container.register({
   envVariables: asValue(envVariables),
 });
 
-// Utils
+// Service Logic
+// container.register({
+//   imageTransformer: asValue(imageTransformer({ sharp })),
+// });
 
 // Rest
 container.register({
@@ -70,8 +72,12 @@ container.register({
 
 // Repositories
 container.register({
-  fileSystemImagePersister: asValue(fileSystemImagePersister({fileSystem, uniqueIDGenerator, envVariables})),
-  fileSystemImageRetriever: asValue(fileSystemImageRetriever({fileSystem, envVariables, validator})),
+  fileSystemImagePersister: asValue(
+    fileSystemImagePersister({ fileSystem, uniqueIDGenerator, envVariables }),
+  ),
+  fileSystemImageRetriever: asValue(
+    fileSystemImageRetriever({ fileSystem, envVariables, validator }),
+  ),
   imageManager: asValue(imageManager),
 });
 

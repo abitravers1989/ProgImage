@@ -6,6 +6,8 @@ module.exports = ({ fileSystem, envVariables, validator }) => ({
     if (!validator.isUUID(imageID))
       throw new Error('A valid image ID must be provided.');
     console.log('----->2') 
+    // const desiredImage = fileSystem.readFileSync(`${envVariables.IMAGESTOREPATH}/${imageID}`);
+    // if(!desiredImage) throw new Error('There is no image at the provided ID, please ensure it is correct.');
     return fileSystem.readFileSync(`${envVariables.IMAGESTOREPATH}/${imageID}`);
   },
 });
