@@ -59,21 +59,6 @@ describe('file system image manager', () => {
       });
     });
 
-    describe('when given an image to save with a pdf file extension', () => {
-      it('saves the image data as provided and returns a the uuid it is saved under', () => {
-        const imagePath = `${__dirname}/testObjects/testImagepdf.pdf`;
-        const imageData = fileSystem.readFileSync(imagePath);
-
-        const imageID = fileSystemImageManager.saveImage(imageData);
-        const savedImage = fileSystem.readFileSync(
-          `${envVariables.IMAGESTOREPATH}/${imageID}`,
-        );
-
-        expect(savedImage).to.be.instanceof(Buffer);
-        expect(imageID).to.be.uuid('v4');
-      });
-    });
-
     describe('when given an image to save with no file extension', () => {
       it('saves the data as provided', () => {
         const imagePath = `${__dirname}/testObjects/testImageData`;

@@ -1,38 +1,22 @@
-module.exports = ({
-  logger,
-  fileSystemImageRetriever,
-  sharp,
-  fileSystem,
-  envVariables,
-}) => ({
-  getImage: (req, res) => {
-    const requestedImage = req.query.imageID;
-    const desiredImageExtension = requestedImage.split('.')[1];
-    const imageId = requestedImage.split('.')[0];
+module.exports = ({ logger, fileSystemImageRetriever, imageTransformer }) => ({
+  getImage: async (req, res) => {
+    const requestedImageId = req.query.imageID;
+    const desiredImageExtension = requestedImageId.split('.')[1];
+    const imageId = requestedImageId.split('.')[0];
+    let requestedImage;
     try {
-      const returnImage = fileSystemImageRetriever.getImage(imageId);
-      if (!desiredImageExtension) {
-        return res.status(200).json(returnImage);
+      requestedImage = fileSystemImageRetriever.getImage(imageId);
+      if (desiredImageExtension) {
+        requestedImage = await imageTransformer.convertImage(
+          requestedImage,
+          desiredImageExtension,
+        );
       }
-      else {
-        sharp(returnImage)
-        .toFormat(desiredImageExtension)
-        .toBuffer()
-        .then(data => { 
-          res.status(200).json(data)
-        })
-      }
+      res.status(200).json(requestedImage);
     } catch (error) {
       logger.error(error.message);
-      if (error.message.includes('ENOENT')) {
-        return res
-          .status(404)
-          .send(
-            'There is no image at the provided ID, please ensure it is correct.',
-          );
-      }
-      return res.status(404).send(error.message);
-      // return next(error);
+      // TODO pass this error to next(error) and handle it in index;
+      res.status(404).send(error.message);
     }
   },
 });
