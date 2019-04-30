@@ -17,9 +17,12 @@ describe('server', () => {
     middleware: {
       init: sandbox.stub().resolves({}),
     },
+    routes: {
+      setupEndpoints: sinon.spy(),
+    },
   };
 
-  const { app, middleware, envVariables, logger } = dependencies;
+  const { app, middleware, envVariables, logger, routes } = dependencies;
   const server = serverFactory(dependencies);
 
   before(() => sandbox.stub(process, 'exit'));
@@ -40,21 +43,25 @@ describe('server', () => {
       server.start();
     });
 
-    it('initialises middleware', async () => {
+    it('initializes middleware', () => {
       expect(middleware.init).to.have.been.called;
     });
 
-    it('creates an express server on the correct port', async () => {
+    it('sets up the app routes', () => {
+      expect(routes.setupEndpoints).to.have.been.called;
+    });
+
+    it('creates an express server on the correct port', () => {
       expect(app.listen).to.have.been.calledWith(envVariables.PORT);
     });
 
-    it('returns a server object', async () => {
+    it('returns a server object', () => {
       app.listen.returns(mockExpress);
       actualServer = server.start();
       expect(actualServer).to.equal(mockExpress);
     });
 
-    it('logs the port the server has been started on', () => {
+    it('logs the server start', () => {
       app.listen.returns(mockExpress);
       server.start();
       app.listen.yield();
@@ -63,7 +70,7 @@ describe('server', () => {
     });
 
     describe('when server creation fails', () => {
-      beforeEach(async () => {
+      beforeEach(() => {
         app.listen.throws();
         server.start();
         expect(process.exit).to.have.been.calledWith(1);

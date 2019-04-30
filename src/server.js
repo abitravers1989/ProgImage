@@ -1,21 +1,16 @@
-module.exports = ({ app, envVariables, logger, middleware, routes, bodyParser }) => {
+module.exports = ({ app, envVariables, logger, middleware, routes }) => {
   let server;
 
   return {
     start: () => {
       try {
-        // not sure what benefit
         middleware.init();
-        //move this out to middlewar
-        //need to test
-        app.use(bodyParser.json());
         routes.setupEndpoints(app);
         server = app.listen(envVariables.PORT, () => {
           logger.info(`Application listening on port ${server.address().port}`);
         });
-        //add routes 
       } catch (error) {
-        logger.error(error, 'Failed to start the server')
+        logger.error(error, 'Failed to start the server');
         process.exit(1);
       }
       return server;
