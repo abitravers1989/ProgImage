@@ -48,14 +48,6 @@ describe('File system image persister', () => {
           'No image is provided',
         );
       });
-
-      xit('throws an error if image input is not an image', () => {
-        const image = 'image';
-
-        expect(() => imagePersister.saveImage(image)).to.throw(
-          'Not type of image',
-        );
-      });
     });
   });
 });
