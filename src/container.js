@@ -21,7 +21,7 @@ const server = require('./server');
 const middleware = require('./middleware/index');
 const imageRoutes = require('./rest/routes/images');
 const routes = require('./rest/index');
-const imageTransformer = require('./serviceLogic/transformImage')
+const imageTransformer = require('./utils/transformImage')
 
 const container = createContainer();
 
@@ -58,7 +58,7 @@ container.register({
   envVariables: asValue(envVariables),
 });
 
-// Service Logic
+// Utils
 container.register({
   imageTransformer: asValue(imageTransformer({ sharp })),
 });
