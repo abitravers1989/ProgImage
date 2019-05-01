@@ -1,6 +1,6 @@
 module.exports = ({ sharp }) => ({
-  convertImage: (returnImage, desiredImageExtension) =>
-    sharp(returnImage)
+  convertImage: (image, desiredImageExtension) =>
+    sharp(image)
       .toFormat(desiredImageExtension)
       .toBuffer(),
 });
