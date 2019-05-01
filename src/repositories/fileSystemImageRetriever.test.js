@@ -28,7 +28,7 @@ describe('File system image retriever', () => {
 
       it('reads the image data which is stored under the provided ID', () => {
         expect(fileSystem.readFileSync).to.have.been.calledWith(
-          `${envVariables.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGE_STORE_PATH}/${imageID}`,
         );
       });
 

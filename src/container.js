@@ -21,7 +21,7 @@ const server = require('./server');
 const middleware = require('./middleware/index');
 const imageRoutes = require('./rest/routes/images');
 const routes = require('./rest/index');
-const imageTransformer = require('./utils/transformImage')
+const imageTransformer = require('./utils/transformImage');
 
 const container = createContainer();
 
@@ -30,9 +30,9 @@ let envVariables;
 try {
   envVariables = getenv.multi({
     PORT: ['PORT', 3000],
-    IMAGESTOREPATH: ['IMAGESTOREPATH'],
+    IMAGE_STORE_PATH: ['IMAGE_STORE_PATH'],
   });
-  if (!envVariables.IMAGESTOREPATH) {
+  if (!envVariables.IMAGE_STORE_PATH) {
     // TODO isValid method and throw new TypeError
     throw new Error('Folder for image to be saved to must be provided');
   }

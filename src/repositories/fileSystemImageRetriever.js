@@ -5,7 +5,7 @@ module.exports = ({ fileSystem, envVariables, validator }) => ({
       throw new Error('A valid image ID must be provided.');
     let desiredImage;
     try {
-      desiredImage = fileSystem.readFileSync(`${envVariables.IMAGESTOREPATH}/${imageID}`);
+      desiredImage = fileSystem.readFileSync(`${envVariables.IMAGE_STORE_PATH}/${imageID}`);
     } catch (error) {
       throw new Error('There is no image at the provided ID, please ensure it is correct.');
     }

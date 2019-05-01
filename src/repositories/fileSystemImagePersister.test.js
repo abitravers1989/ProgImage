@@ -27,7 +27,7 @@ describe('File system image persister', () => {
         imagePersister.saveImage(imageData);
 
         expect(fileSystem.writeFileSync).to.have.been.calledWith(
-          `${envVariables.IMAGESTOREPATH}/${uuid}`,
+          `${envVariables.IMAGE_STORE_PATH}/${uuid}`,
           imageData,
         );
       });

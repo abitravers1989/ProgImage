@@ -5,7 +5,7 @@ module.exports = ({ fileSystem, uniqueIDGenerator, envVariables }) => ({
     if (!imageData) throw new Error('No image is provided');
     const imageID = uniqueIDGenerator();
     fileSystem.writeFileSync(
-      `${envVariables.IMAGESTOREPATH}/${imageID}`,
+      `${envVariables.IMAGE_STORE_PATH}/${imageID}`,
       imageData,
     );
     return imageID;

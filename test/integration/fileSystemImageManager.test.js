@@ -36,7 +36,7 @@ describe('file system image manager', () => {
 
         const imageID = fileSystemImageManager.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${envVariables.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGE_STORE_PATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
@@ -51,7 +51,7 @@ describe('file system image manager', () => {
 
         const imageID = fileSystemImageManager.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${envVariables.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGE_STORE_PATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
@@ -66,7 +66,7 @@ describe('file system image manager', () => {
 
         const imageID = fileSystemImageManager.saveImage(imageData);
         const savedImage = fileSystem.readFileSync(
-          `${envVariables.IMAGESTOREPATH}/${imageID}`,
+          `${envVariables.IMAGE_STORE_PATH}/${imageID}`,
         );
 
         expect(savedImage).to.be.instanceof(Buffer);
