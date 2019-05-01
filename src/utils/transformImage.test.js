@@ -17,7 +17,7 @@ describe('Image transformer', () => {
 
   after(() => sandbox.restore());
 
-  describe.only('convertImage', () => {
+  describe('convertImage', () => {
     it('formats the image to the desired image extension', async () => {
       const desiredImageExtension = 'jpeg';
       const imageToBeTransformed = '[37, 2666, 78, 00, 33]';
@@ -36,19 +36,25 @@ describe('Image transformer', () => {
     });
 
     describe('when no image is provided', () => {
-      it.only('throws an error', async () => {
+      it('throws an error', async () => {
         const desiredImageExtension = 'jpeg';
         const imageToBeTransformed = undefined;
 
-        expect(async () =>
-          transformImage.convertImage(
+        await expect(transformImage.convertImage(
             imageToBeTransformed,
             desiredImageExtension,
-          ),
-        ).eventually.throw('No image provided.');
+          )).to.be.rejected;
       });
       describe('when the wrong desired image extension is given', () => {
-        it('throws an error', () => {});
+        it('throws an error', async () => {
+          const desiredImageExtension = 'svg';
+          const imageToBeTransformed = '[37, 2666, 78, 00, 33]';
+
+          await expect(transformImage.convertImage(
+            imageToBeTransformed,
+            desiredImageExtension,
+          )).to.be.rejected;
+        });
       });
     });
   });

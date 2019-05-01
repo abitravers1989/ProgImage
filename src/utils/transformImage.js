@@ -1,6 +1,5 @@
 module.exports = ({ sharp }) => ({
   convertImage: async (image, desiredImageExtension) => {
-    console.log('----->ccc', )
     if (!image) throw new Error('No image provided.');
     //TODO refactor this out to a constant file
     const supportedImageExtensions = ['jpeg', 'png', 'webp', 'tiff', 'gif'] 

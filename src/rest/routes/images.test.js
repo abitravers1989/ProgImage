@@ -7,7 +7,6 @@ describe('routes/images', () => {
 
   const dependencies = {
     logger: {
-      // info: () => {},
       error: sandbox.spy(),
     },
     fileSystemImageRetriever: {
@@ -59,7 +58,7 @@ describe('routes/images', () => {
   describe('when the call to the file system fails', () => {
     describe('when no imageID is provided', () => {
       // e.g, http://localhost:3000/getImage?imageID=
-      it('returns a 404 with an error message', () => {
+      it('returns a 400 with an error message', () => {
         const req = {
           query: {
             imageID: '',
@@ -77,7 +76,7 @@ describe('routes/images', () => {
         expect(logger.error).to.have.been.calledWithExactly(
           'No image ID has been provided.',
         );
-        expect(res.status).to.have.been.calledWithExactly(404);
+        expect(res.status).to.have.been.calledWithExactly(400);
         expect(res.send).to.have.been.calledWithExactly(
           'No image ID has been provided.',
         );
@@ -86,7 +85,7 @@ describe('routes/images', () => {
 
     describe('when the given imageID does not match a stored image', () => {
       // eg. http://localhost:3000/getImage?imageID=dd301786-9b3a-4972-89e6-e77f2763eaf2
-      it('returns a 404 and an error message', () => {
+      it('returns a 400 and an error message', () => {
         const imageID = uniqueIDGenerator();
         const req = {
           query: {
@@ -107,7 +106,7 @@ describe('routes/images', () => {
         expect(logger.error).to.have.been.calledWithExactly(
           'There is no image at the provided ID, please ensure it is correct.',
         );
-        expect(res.status).to.have.been.calledWithExactly(404);
+        expect(res.status).to.have.been.calledWithExactly(400);
         expect(res.send).to.have.been.calledWithExactly(
           'There is no image at the provided ID, please ensure it is correct.',
         );
@@ -116,7 +115,7 @@ describe('routes/images', () => {
 
     describe('when the given imageID is not a uuid', () => {
       // eg. http://localhost:3000/getImage?imageID=randomstring
-      it('returns a 404 and an error message', () => {
+      it('returns a 400 and an error message', () => {
         const imageID = 'randomString';
         const req = {
           query: {
@@ -135,7 +134,7 @@ describe('routes/images', () => {
         expect(logger.error).to.have.been.calledWithExactly(
           'A valid image ID must be provided.',
         );
-        expect(res.status).to.have.been.calledWithExactly(404);
+        expect(res.status).to.have.been.calledWithExactly(400);
         expect(res.send).to.have.been.calledWithExactly(
           'A valid image ID must be provided.',
         );
