@@ -87,7 +87,8 @@ $ npm run test:unit
 
 # Further work
 
-Add save endpoint. (then remove imageManager & it's integration test.)
+Add save endpoint. (then remove imageManager & it's integration test)
+Refactor 'supportedImageExtensions' into constants so out of transform image.
 Unit test parts which are not covered (including parts of server file).
 Add linting.
 Add output for logger, even just local file.
