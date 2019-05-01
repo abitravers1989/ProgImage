@@ -2,7 +2,7 @@
 
 A service for saving, retrieving and converting images.
 
-# :floppy_disk: Installation
+# Installation
 
 `npm install`
 
@@ -11,7 +11,7 @@ A service for saving, retrieving and converting images.
 All configuration is done using environment variables, the following are required:
 
 - **PORT** - Port to run the server on. Defaults to 3000. _Optional_
-- **IMAGESTOREPATH** - This is the location in the file directory which you want the images to be stored in. To create it first add the path to this application directory then add the name of the folder you want to store images in.
+- **IMAGE_STORE_PATH** - This is the location in the file directory which you want the images to be stored in. To create it first add the path to this application directory then add the name of the folder you want to store images in.
 
 To run this locally please create a .env in the route of this directory with the above in. See the .env.example. 
 
@@ -21,7 +21,7 @@ Standalone app start - `npm start`
 
 # Retrieving an image 
 
-To retrieve an image via the api, hit the /getImage endpoint passing it a `imageID` query param which contains the ID which the image has been saved as. Please run the integration tests to save an image before hand and look in the folder you chose for `IMAGESTOREPATH`.
+To retrieve an image via the api, hit the /getImage endpoint passing it a `imageID` query param which contains the ID which the image has been saved as. Please run the integration tests to save an image before hand and look in the folder you chose for `IMAGE_STORE_PATH`.
 
 For example:
 
@@ -50,7 +50,7 @@ urlforservice/getImage?imageID=
 
 /getImage is not available without the imageID query param.
 
-# :vertical_traffic_light: Testing
+# Testing
 
 ### All tests
 
@@ -92,5 +92,6 @@ Unit test parts which are not covered (including parts of server file).
 Add linting.
 Add output for logger, even just local file.
 Deploy app to aws ec2 instance.
+Improve performance of conversions.
 Docker-ise app and integration tests. 
 Save images to a relational database once more images are being stored and performance is effected. Can get performance gains from it's indexing. 
